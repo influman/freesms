@@ -1,0 +1,68 @@
+{
+	"plugin_id": "freesms",
+	"name_fr": "Notifications SMS FreeMobile",
+	"icon": "freesms.png",
+	"version": "1.1",
+	"creation_date": "2018-01-28",
+	"modification_date": "2018-02-03",
+	"author": "Influman",
+	"description_fr": "Notifications SMS via API <a href='https://mobile.free.fr'>FreeMobile</a>",
+	"description_en": "",
+	"description_es": "",
+	"description_it": "",
+	"description_de": "",
+	"forum_link": "",
+	"parameters": 
+	[
+		{
+			"parameter": "free_login", 
+			"description": "LOGIN Compte Free Mobile :",
+			"xtype": "textfield",
+			"default_value": "",
+			"field": "width:250, allowBlank:false"
+        },
+		{
+			"parameter": "free_key", 
+			"description": "KEY API SMS Free Mobile",
+			"xtype": "textfield",
+			"default_value": "",
+			"field": "width:250, allowBlank:false"
+        }
+	 ],
+	"scripts":
+	[
+		{
+			"name": "freesms.php"
+		}
+	],
+	"devices":
+    [
+		{
+			"device_id": "freesms",
+			"module_id": "41",
+			"type": "http",
+			"name_fr": "Notifications SMS FreeMobile",
+			"icon": "freesms.png",
+			"utilisation_id": "43",
+			"parameters":
+			{
+				"VAR1": "plugin.parameters.free_login",
+				"VAR2": "plugin.parameters.free_key",
+				"VAR3": "",
+				"value_type": "list",
+				"ignore_errors": 3,
+				"RAW_URL": "",
+				"RAW_XPATH": "",
+				"POLLING": "0"
+			},
+			"values":
+			[
+				{ "value": "1", "description": "Météo du jour [BR][PERIPH_ID][BR][PERIPH_ID]", "icon": "freesms.png", "http_url": "http://localhost/script/?exec=freesms.php", "http_type": "GET",  "http_params": "&value=[RAW_VALUE]&login=[VAR1]&key=[VAR2]&chatbot=[VAR3]" },
+				{ "value": "2", "description": "[PERIPH_ID] °C le [DATE] [TIME]", "icon": "freesms.png", "http_url": "http://localhost/script/?exec=freesms.php", "http_type": "GET",  "http_params": "&value=[RAW_VALUE]&login=[VAR1]&key=[VAR2]&chatbot=[VAR3]" },
+				{ "value": "9999", "description": "[CHATBOT]", "hidden": 1, "icon": "freesms.png", "http_url": "http://localhost/script/?exec=freesms.php", "http_type": "GET",  "http_params": "&value=[RAW_VALUE]&login=[VAR1]&key=[VAR2]&chatbot=[VAR3]" },
+				{ "value": "99999", "description": "[ASK]", "hidden": 1, "icon": "freesms.png", "http_url": "http://localhost/script/?exec=freesms.php", "http_type": "GET",  "http_params": "&value=[RAW_VALUE]&login=[VAR1]&key=[VAR2]&chatbot=[VAR3]" }
+			]
+		}
+		
+	]
+}
