@@ -2,7 +2,7 @@
 	"plugin_id": "freesms",
 	"name_fr": "Notifications SMS FreeMobile",
 	"icon": "freesms.png",
-	"version": "1.1",
+	"version": "1.2",
 	"creation_date": "2018-01-28",
 	"modification_date": "2018-02-03",
 	"author": "Influman",
@@ -51,12 +51,13 @@
 				"VAR3": "",
 				"value_type": "list",
 				"ignore_errors": 3,
-				"RAW_URL": "",
-				"RAW_XPATH": "",
-				"POLLING": "0"
+				"RAW_URL": "http://localhost/script/?exec=freesms.php&value=polling",
+				"RAW_XPATH": "/FREESMS/STATUS",
+				"POLLING": "5"
 			},
 			"values":
 			[
+				{ "value": "0", "description": "Ready", "hidden": 1, "icon": "freesms.png", "http_url": "http://localhost/script/?exec=freesms.php", "http_type": "GET",  "http_params": "&value=void" },
 				{ "value": "1", "description": "Météo du jour [BR][PERIPH_ID][BR][PERIPH_ID]", "icon": "freesms.png", "http_url": "http://localhost/script/?exec=freesms.php", "http_type": "GET",  "http_params": "&value=[RAW_VALUE]&login=[VAR1]&key=[VAR2]&chatbot=[VAR3]" },
 				{ "value": "2", "description": "[PERIPH_ID] °C le [DATE] [TIME]", "icon": "freesms.png", "http_url": "http://localhost/script/?exec=freesms.php", "http_type": "GET",  "http_params": "&value=[RAW_VALUE]&login=[VAR1]&key=[VAR2]&chatbot=[VAR3]" },
 				{ "value": "9999", "description": "[CHATBOT]", "hidden": 1, "icon": "freesms.png", "http_url": "http://localhost/script/?exec=freesms.php", "http_type": "GET",  "http_params": "&value=[RAW_VALUE]&login=[VAR1]&key=[VAR2]&chatbot=[VAR3]" },

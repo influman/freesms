@@ -1,17 +1,17 @@
 <?php
    $xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?>";      
    //***********************************************************************************************************************
-   // V1.1 : Notification SMS via API Free Mobile
+   // V1.2 : Notification SMS via API Free Mobile
    
 	// recuperation des infos depuis la requete
-    $value = getArg("value");
-	$key = getArg("key");
-	$login = getArg("login");
+    $value = getArg("value", true);
+	$key = getArg("key", false);
+	$login = getArg("login", false);
 	$periph_id = getArg('eedomus_controller_module_id'); 
-	$chatbot_output = getArg("chatbot");
+	$chatbot_output = getArg("chatbot", false);
 	
 	$notif = "";
-	if ($value != "" && $value >= 0 && $key != "plugin.parameters.free_login" && $event != "plugin.parameters.free_key") {
+	if ($value != "" && is_numeric($value) && $value > 0 && $login != "plugin.parameters.free_login" && $key != "plugin.parameters.free_key") {
 		// récupérer description de l'actionneur déclenché
 		$tab_value = getPeriphValueList($periph_id);
 		foreach($tab_value As $tab_notif_value) {
@@ -128,7 +128,14 @@
 		
 		$url = "https://smsapi.free-mobile.fr/sendmsg?user=".$login."&pass=".$key."&msg=".$value1;
 		httpQuery($url,'GET'); 	
-		
+		die();
+	}
+	
+	if ($value == "polling") {
+		$xml .= "<FREESMS><STATUS>0</STATUS></FREESMS>";
+		sdk_header('text/xml');
+		echo $xml;    
+		die();
 	}
 
 	function sdk_noaccent($text) {
@@ -137,15 +144,14 @@
 	return preg_replace($utf8_keys, $utf8_values, $text);
 	}	
 	
-		function sdk_fullescape($in)
+	function sdk_fullescape($in)
 	{
-  $out = urlencode($in);
-  
-  $out = str_replace('+','%20',$out);
-  $out = str_replace('_','%5F',$out);
-  $out = str_replace('.','%2E',$out);
-  $out = str_replace('-','%2D',$out);
-  $out = str_replace('%B0','%27',$out);
-  return $out;
+		$out = urlencode($in);
+		$out = str_replace('+','%20',$out);
+		$out = str_replace('_','%5F',$out);
+		$out = str_replace('.','%2E',$out);
+		$out = str_replace('-','%2D',$out);
+		$out = str_replace('%B0','%27',$out);
+	return $out;
 	} 
 ?>
